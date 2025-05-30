@@ -2,13 +2,13 @@
 Base URL: https://recommendationservice-rlr1.onrender.com/api/v1/recommendations
 
 🔹 Get All Recommendations
-GET /recommendations
+GET /recommendations/
 
 🔹 Get Recommendation by ID
-GET /recommendations/{id}
+GET /recommendations/{bookId}
 
 🔹 Delete Recommendation by ID
-DELETE /recommendations/{id}
+DELETE /recommendations/{bookId}
 
 🔹 Create a Recommendation
 POST /recommendations
@@ -24,7 +24,7 @@ Copy code
   "content": "Highly recommended for beginners!"
 }
 🔹 Update a Recommendation
-PUT /recommendations/{id}
+PUT /recommendations/{bookId}
 
 Request Body:
 
