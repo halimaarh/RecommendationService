@@ -21,22 +21,23 @@ public class RecommendationController {
     }
 
     @GetMapping("/{bookId}")
-    public List<Recommendation> getRecommendationsByBookId(@PathVariable int bookId) {
-        return recommendationService.getByBookId(bookId);
+    public List<Recommendation> getRecommendationsByBookId(@PathVariable Long bookId) {
+        return recommendationService.getRecommendationsByBookId(bookId);
     }
 
     @PostMapping
     public Recommendation createRecommendation(@RequestBody Recommendation recommendation) {
-        return recommendationService.save(recommendation);
+        return recommendationService.saveRecommendation(recommendation);
     }
 
-    @PutMapping("/{bookId}")
-    public List<Recommendation> updateRecommendationByBookId(@PathVariable int bookId, @RequestBody Recommendation recommendationDetails) {
-        return recommendationService.updateRecommendationByBookId(bookId, recommendationDetails);
+    @PutMapping("/{recommendationId}")
+    public Recommendation updateRecommendation(@PathVariable Long recommendationId,
+                                               @RequestBody Recommendation recommendationDetails) {
+        return recommendationService.updateRecommendation(recommendationId, recommendationDetails);
     }
 
-    @DeleteMapping("/{bookId}")
-    public void deleteRecommendationsByBookId(@PathVariable int bookId) {
-        recommendationService.deleteByBookId(bookId);
+    @DeleteMapping("/{recommendationId}")
+    public void deleteRecommendation(@PathVariable Long recommendationId) {
+        recommendationService.deleteRecommendation(recommendationId);
     }
 }

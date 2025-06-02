@@ -13,40 +13,33 @@ public class RecommendationService {
     @Autowired
     private RecommendationRepository recommendationRepository;
 
-    // Get all recommendations
     public List<Recommendation> getAllRecommendations() {
         return recommendationRepository.findAll();
     }
 
-    // Get all recommendations for a specific book
-    public List<Recommendation> getByBookId(int bookId) {
+    public List<Recommendation> getRecommendationsByBookId(Long bookId) {
         return recommendationRepository.findAllByBookId(bookId);
     }
 
-    // Create a new recommendation
-    public Recommendation save(Recommendation recommendation) {
+    public Recommendation saveRecommendation(Recommendation recommendation) {
         return recommendationRepository.save(recommendation);
     }
 
-    // Update all recommendations for a specific book ID
-    public List<Recommendation> updateRecommendationByBookId(int bookId, Recommendation recommendationDetails) {
-        List<Recommendation> recommendations = recommendationRepository.findAllByBookId(bookId);
-        if (recommendations.isEmpty()) {
-            throw new RuntimeException("No recommendations found for bookId " + bookId);
-        }
+    public Recommendation updateRecommendation(Long recommendationId, Recommendation updatedDetails) {
+        Recommendation existingRecommendation = recommendationRepository.findById(recommendationId)
+                .orElseThrow(() -> new RuntimeException("Recommendation not found with ID " + recommendationId));
 
-        for (Recommendation recommendation : recommendations) {
-            recommendation.setAuthor(recommendationDetails.getAuthor());
-            recommendation.setRate(recommendationDetails.getRate());
-            recommendation.setContent(recommendationDetails.getContent());
-        }
+        existingRecommendation.setAuthor(updatedDetails.getAuthor());
+        existingRecommendation.setRate(updatedDetails.getRate());
+        existingRecommendation.setContent(updatedDetails.getContent());
 
-        return recommendationRepository.saveAll(recommendations);
+        return recommendationRepository.save(existingRecommendation);
     }
 
-    // Delete all recommendations by book ID
-    public void deleteByBookId(int bookId) {
-        List<Recommendation> recommendations = recommendationRepository.findAllByBookId(bookId);
-        recommendationRepository.deleteAll(recommendations);
+    public void deleteRecommendation(Long recommendationId) {
+        if (!recommendationRepository.existsById(recommendationId)) {
+            throw new RuntimeException("Recommendation not found with ID " + recommendationId);
+        }
+        recommendationRepository.deleteById(recommendationId);
     }
 }
