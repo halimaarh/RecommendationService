@@ -9,42 +9,33 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/recommendations")
+@CrossOrigin(origins = "http://localhost:5173")
 public class RecommendationController {
 
     @Autowired
     private RecommendationService recommendationService;
 
-    // Get all recommendations
     @GetMapping("/")
-    @CrossOrigin(origins = "http://localhost:5173")
     public List<Recommendation> getAllRecommendations() {
         return recommendationService.getAllRecommendations();
     }
 
-    // Get all recommendations for a specific book
     @GetMapping("/{bookId}")
-    @CrossOrigin(origins = "http://localhost:5173")
     public List<Recommendation> getRecommendationsByBookId(@PathVariable int bookId) {
         return recommendationService.getByBookId(bookId);
     }
 
-    // Create a new recommendation
     @PostMapping
-    @CrossOrigin(origins = "http://localhost:5173")
     public Recommendation createRecommendation(@RequestBody Recommendation recommendation) {
         return recommendationService.save(recommendation);
     }
 
-    // Update a recommendation by ID
-    @PutMapping("/{id}")
-    @CrossOrigin(origins = "http://localhost:5173")
-    public Recommendation updateRecommendation(@PathVariable Long id, @RequestBody Recommendation recommendationDetails){
-        return recommendationService.updateRecommendation(id, recommendationDetails);
+    @PutMapping("/{bookId}")
+    public List<Recommendation> updateRecommendationByBookId(@PathVariable int bookId, @RequestBody Recommendation recommendationDetails) {
+        return recommendationService.updateRecommendationByBookId(bookId, recommendationDetails);
     }
 
-    // Delete all recommendations for a specific book
     @DeleteMapping("/{bookId}")
-    @CrossOrigin(origins = "http://localhost:5173")
     public void deleteRecommendationsByBookId(@PathVariable int bookId) {
         recommendationService.deleteByBookId(bookId);
     }

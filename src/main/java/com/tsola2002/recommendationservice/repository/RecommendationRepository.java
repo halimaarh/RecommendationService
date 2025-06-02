@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface RecommendationRepository extends JpaRepository<Recommendation, Long> {
-    // Retrieve all recommendations by a specific book ID
     List<Recommendation> findAllByBookId(int bookId);
 }

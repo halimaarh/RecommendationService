@@ -28,16 +28,20 @@ public class RecommendationService {
         return recommendationRepository.save(recommendation);
     }
 
-    // Update an existing recommendation
-    public Recommendation updateRecommendation(Long id, Recommendation recommendationDetails) {
-        return recommendationRepository.findById(id).map(recommendation -> {
-            recommendation.setBookId(recommendationDetails.getBookId());
-            recommendation.setRecommendationId(recommendationDetails.getRecommendationId());
+    // Update all recommendations for a specific book ID
+    public List<Recommendation> updateRecommendationByBookId(int bookId, Recommendation recommendationDetails) {
+        List<Recommendation> recommendations = recommendationRepository.findAllByBookId(bookId);
+        if (recommendations.isEmpty()) {
+            throw new RuntimeException("No recommendations found for bookId " + bookId);
+        }
+
+        for (Recommendation recommendation : recommendations) {
             recommendation.setAuthor(recommendationDetails.getAuthor());
             recommendation.setRate(recommendationDetails.getRate());
             recommendation.setContent(recommendationDetails.getContent());
-            return recommendationRepository.save(recommendation);
-        }).orElseThrow(() -> new RuntimeException("Recommendation not found with id " + id));
+        }
+
+        return recommendationRepository.saveAll(recommendations);
     }
 
     // Delete all recommendations by book ID
