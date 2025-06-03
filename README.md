@@ -1,4 +1,8 @@
 ⭐ Recommendation Service
+
+POSTMAN DOCUMENTATION LINK
+https://documenter.getpostman.com/view/37320664/2sB2qgeyXN
+
 Base URL: https://recommendationservice-rlr1.onrender.com/api/v1/recommendations
 
 🔹 Get All Recommendations
@@ -8,7 +12,7 @@ GET /recommendations/
 GET /recommendations/{bookId}
 
 🔹 Delete Recommendation by ID
-DELETE /recommendations/{bookId}
+DELETE /recommendations/{recommendationId}
 
 🔹 Create a Recommendation
 POST /recommendations
@@ -24,7 +28,7 @@ Copy code
   "content": "Highly recommended for beginners!"
 }
 🔹 Update a Recommendation
-PUT /recommendations/{bookId}
+PUT /recommendations/{recommendaionId}
 
 Request Body:
 
