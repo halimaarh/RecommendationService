@@ -21,6 +21,11 @@ public class RecommendationService {
         return recommendationRepository.findAllByBookId(bookId);
     }
 
+    public Recommendation getRecommendationById(Long recommendationId) {
+        return recommendationRepository.findById(recommendationId)
+                .orElseThrow(() -> new RuntimeException("Recommendation not found with ID " + recommendationId));
+    }
+
     public Recommendation saveRecommendation(Recommendation recommendation) {
         return recommendationRepository.save(recommendation);
     }

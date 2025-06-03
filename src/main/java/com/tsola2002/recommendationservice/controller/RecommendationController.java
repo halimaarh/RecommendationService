@@ -25,6 +25,12 @@ public class RecommendationController {
         return recommendationService.getRecommendationsByBookId(bookId);
     }
 
+    // ✅ New endpoint to get recommendation by ID
+    @GetMapping("recommendation/{recommendationId}")
+    public Recommendation getRecommendationById(@PathVariable Long recommendationId) {
+        return recommendationService.getRecommendationById(recommendationId);
+    }
+
     @PostMapping
     public Recommendation createRecommendation(@RequestBody Recommendation recommendation) {
         return recommendationService.saveRecommendation(recommendation);
